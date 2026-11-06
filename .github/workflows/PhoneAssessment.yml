@@ -13,13 +13,13 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v3
         with:
           java-version: '21'
-          distribution: 'temurin'
+          contribution: 'temurin'
           cache: maven
 
       - name: Build and Run Test
@@ -27,7 +27,49 @@ jobs:
 
       - name: Upload Test Report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: Selenium-report
-          path: target/Report/
+           path: target/Report/
+
+           - name: Send Email with Emailable Report Attachment
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # SMTP server configuration
+          server_address: smtp.gmail.com                    # Gmail SMTP server
+          server_port: 587                                  # TLS secure connection port
+          # Authentication credentials (stored in GitHub secrets for security)
+          username: ${{ secrets.EMAIL_USERNAME }}           # Gmail account email
+          password: ${{ secrets.EMAIL_PASSWORD }}           # Gmail app-specific password
+          # Email content
+          subject: Selenium Automation Test Results - Report for CI/CD  # Email subject line
+          to: martyitope@gmail.com                        # Recipient email address
+          from: ${{ secrets.EMAIL_USERNAME }}               # Sender email address
+          # Message body with test execution details and formatting
+          body: |
+            Hi Team, 
+            ═══════════════════════════════════════════════════════════
+                          TEST EXECUTION REPORT
+            ═══════════════════════════════════════════════════════════ 
+            Repository  :  ${{ github.repository }}
+            Branch      :  ${{ github.ref_name }}
+            Commit      :  ${{ github.sha }}  
+            Run Number  :  ${{ github.run_number }}
+            Triggered by:  ${{ github.actor }}
+            Status      :  COMPLETED
+
+            ───────────────────────────────────────────────────────────
+
+            Please find the report attached to this email.
+
+            For more details, visit:
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            Kind Regards,
+            Team Lead
+
+          attachments: target/Report/Ndosi Phone Test Report.html
+
+            
+            
