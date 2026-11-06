@@ -30,18 +30,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Selenium-report
-          path: target/Report/
+          path: target/Report/Ndosi Phone Test Report.html
 
       - name: Send Email with Emailable Report Attachment
-        if: always()
-        uses: dawidd6/action-send-mail@v3
+        if: always() && github.event_name == 'push'
+        uses: dawidd6/action-send-mail@v4
         with:
           # SMTP server configuration
           server_address: smtp.gmail.com                    # Gmail SMTP server
           server_port: 587                                  # TLS secure connection port
           # Authentication credentials (stored in GitHub secrets for security)
           username: ${{ secrets.EMAIL_USERNAME }}           # Gmail account email
-          password: ${{ secrets.EMAIL_PASSWORD }}           # Gmail app-specific password
+          password: ${{ secrets.EMAIL_APP_PASSWORD }}       # Gmail app-specific password
           # Email content
           subject: Selenium Automation Test Results - Report for CI/CD  # Email subject line
           to: martyitope@gmail.com                        # Recipient email address
@@ -67,9 +67,10 @@ jobs:
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
             Kind Regards,
+            Martin Itope
             Team Lead
 
           attachments: target/Report/Ndosi Phone Test Report.html
 
-            
-            
+
+
