@@ -21,12 +21,19 @@ public class BrowserFactory {
         boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "false"));
 
         if (browserChoice.equalsIgnoreCase("Chrome")) {
+
             ChromeOptions options = new ChromeOptions();
+
             if (isHeadless) {
                 options.addArguments("--headless=new");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--window-size=1920,1080");
             }
-           // driver = new ChromeDriver(options);
-        }else if (browserChoice.equalsIgnoreCase("FireFOx")) {
+
+            driver = new ChromeDriver(options);
+        }
+            else if (browserChoice.equalsIgnoreCase("FireFOx")) {
             driver = new FirefoxDriver();
         } else {
             driver = new EdgeDriver();
