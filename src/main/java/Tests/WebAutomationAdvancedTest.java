@@ -1,11 +1,5 @@
 package Tests;
 
-import Pages.HomePage;
-import Pages.LoginPage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -33,24 +27,27 @@ public class WebAutomationAdvancedTest extends Base {
         takeScreenshots.takeSnapShot(driver, "validLogin");
         Thread.sleep(2000);
         takeScreenshots.takeSnapShot(driver, "AfterLogin");
+        Thread.sleep(2000);
     }
 
     @Test (dependsOnMethods = "LoginTest")
     public void landingPageTest() throws InterruptedException {
-       // landingPage.verifyLoginSuccess();
-        Thread.sleep(1000);
         landingPage.clicklearn();
+        Thread.sleep(2000);
+    }
+    @Test (dependsOnMethods = "landingPageTest")
+    public void clickLearnMaterialTest() throws InterruptedException {
         landingPage.clickLearningMat();
         Thread.sleep(2000);
     }
 
-    @Test (dependsOnMethods = "landingPageTest")
-    public void LearningMatTest() throws InterruptedException {
+    @Test (dependsOnMethods = "clickLearnMaterialTest")
+    public void clickWebFormTest() throws InterruptedException {
         learnPage.clickWebAutoAdvance();
         Thread.sleep(2000);
     }
 
-    @Test (dependsOnMethods = "LearningMatTest")
+    @Test (dependsOnMethods = "clickWebFormTest")
     public void WebAutoAdvanceTest() throws InterruptedException {
         takeScreenshots.takeSnapShot(driver, "InventoryForm");
         webAutoAdvancedPage.setDeviceType();
@@ -79,12 +76,5 @@ public class WebAutomationAdvancedTest extends Base {
         takeScreenshots.takeSnapShot(driver, "Final Invoice");
 
     }
-
-//    @Test (dependsOnMethods = "WebAutoPage2Test")
-//    public void tearDown() {
-//        if (driver != null) {
-//            driver.quit();
-//        }
-//    }
 
 }

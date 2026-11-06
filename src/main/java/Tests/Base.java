@@ -15,32 +15,18 @@ import org.testng.annotations.BeforeClass;
  */
 public class Base {
 
+        BrowserFactory browserFactory = new BrowserFactory();
 
-    WebDriver driver;
+        final WebDriver driver = browserFactory.startBrowser("chrome", "https://ndosisimplifiedautomation.vercel.app/");
 
-    public HomePage homepage;
-    public LoginPage loginPage;
-    public LandingPage landingPage;
-    public TakeScreenshots takeScreenshots = new TakeScreenshots();
-    public LearnPage learnPage;
-    public WebAutoAdvancedPage webAutoAdvancedPage;
+        public HomePage homepage = PageFactory.initElements(driver, HomePage.class);
+        public LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
+        public LandingPage landingPage = PageFactory.initElements(driver, LandingPage.class);
+        public TakeScreenshots takeScreenshots = new TakeScreenshots();
+        public LearnPage learnPage = PageFactory.initElements(driver, LearnPage.class);
+        public WebAutoAdvancedPage webAutoAdvancedPage = PageFactory.initElements(driver, WebAutoAdvancedPage.class);
 
-    @BeforeClass(alwaysRun = true)
-    public void setUp() {
-        String baseUrl = System.getProperty("baseUrl", "https://ndosisimplifiedautomation.vercel.app/");
-        driver = BrowserFactory.startBrowser("chrome", baseUrl);
-        homepage = PageFactory.initElements(driver, HomePage.class);
-        loginPage = PageFactory.initElements(driver, LoginPage.class);
-        landingPage = PageFactory.initElements(driver, LandingPage.class);
-        learnPage = PageFactory.initElements(driver, LearnPage.class);
-        webAutoAdvancedPage = PageFactory.initElements(driver, WebAutoAdvancedPage.class);
-    }
 
-    @AfterClass(alwaysRun = true)
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+   // }
 
 }
