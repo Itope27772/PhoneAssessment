@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '21'
-          contribution: 'temurin'
+          distribution: 'temurin'
           cache: maven
 
       - name: Build and Run Test
@@ -30,9 +30,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Selenium-report
-           path: target/Report/
+          path: target/Report/
 
-           - name: Send Email with Emailable Report Attachment
+      - name: Send Email with Emailable Report Attachment
         if: always()
         uses: dawidd6/action-send-mail@v3
         with:
