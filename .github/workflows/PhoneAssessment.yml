@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '21'
-          contribution: 'maven'
+          contribution: 'temurin'
           cache: maven
 
       - name: Build and Run Test
