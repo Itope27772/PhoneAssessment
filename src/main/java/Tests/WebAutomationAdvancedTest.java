@@ -30,23 +30,24 @@ public class WebAutomationAdvancedTest extends Base {
         loginPage.setLoginEmail();
         loginPage.setLoginPassword();
         loginPage.clickLoginSubmit();
-        //takeScreenshots.takeSnapShot(driver, "validLogin");
-        Thread.sleep(4000);
+        takeScreenshots.takeSnapShot(driver, "validLogin");
+        Thread.sleep(2000);
         takeScreenshots.takeSnapShot(driver, "AfterLogin");
     }
 
     @Test (dependsOnMethods = "LoginTest")
     public void landingPageTest() throws InterruptedException {
        // landingPage.verifyLoginSuccess();
+        Thread.sleep(1000);
         landingPage.clicklearn();
         landingPage.clickLearningMat();
-        Thread.sleep(4000);
+        Thread.sleep(2000);
     }
 
     @Test (dependsOnMethods = "landingPageTest")
     public void LearningMatTest() throws InterruptedException {
         learnPage.clickWebAutoAdvance();
-        Thread.sleep(4000);
+        Thread.sleep(2000);
     }
 
     @Test (dependsOnMethods = "LearningMatTest")
@@ -69,12 +70,12 @@ public class WebAutomationAdvancedTest extends Base {
         webAutoAdvancedPage.setWarranty();
         webAutoAdvancedPage.enterDiscountCode("SAVE10");
         webAutoAdvancedPage.clickConfirm();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         takeScreenshots.takeSnapShot(driver, "Confirmed_InventoryForm");
         webAutoAdvancedPage.clickInvoice();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         webAutoAdvancedPage.openInvoice();
-        Thread.sleep(4000);
+        Thread.sleep(2000);
         takeScreenshots.takeSnapShot(driver, "Final Invoice");
 
     }
