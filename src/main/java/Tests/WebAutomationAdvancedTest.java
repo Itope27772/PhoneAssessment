@@ -50,16 +50,16 @@ public class WebAutomationAdvancedTest extends Base {
     }
 
     @Test (dependsOnMethods = "WebAutoAdvanceTest")
-    public void NextPageTest() throws InterruptedException {
+    public void WebAutoPage2Test() throws InterruptedException {
         webAutoAdvancedPage.selectShippingMethod();
         webAutoAdvancedPage.setWarranty();
         webAutoAdvancedPage.enterDiscountCode("SAVE10");
         webAutoAdvancedPage.clickConfirm();
-        Thread.sleep(6000);
+        Thread.sleep(5000);
         webAutoAdvancedPage.clickInvoice();
-        Thread.sleep(6000);
+        Thread.sleep(5000);
         webAutoAdvancedPage.openInvoice();
-        Thread.sleep(6000);
+        Thread.sleep(4000);
 
     }
 

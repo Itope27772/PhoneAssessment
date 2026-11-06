@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="ExtentReports.Listeners"/>
+    </listeners>
+    <test verbose="2" preserve-order="true" name="C:/Users/marty/workspace/Projects/PhoneAssessment">
+        <classes>
+            <class name="Tests.WebAutomationAdvancedTest">
+                <methods>
+                    <include name="LoginTest"/>
+                    <include name="landingPageTest"/>
+                    <include name="LearningMatTest"/>
+                    <include name="WebAutoAdvanceTest"/>
+                    <include name="NextPageTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
