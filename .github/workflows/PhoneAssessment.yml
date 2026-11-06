@@ -1,4 +1,5 @@
-name: Phone Assessment Pipeline
+name: Selenium Java 7th Group Pipeline
+
 on:
   push:
     branches:
@@ -8,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,39 +23,41 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build and Run Test
+      - name: Build and Run Tests
         run: mvn clean test -Dheadless=true
 
-      - name: Upload Test Report
+      - name: Upload Selenium Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Selenium-report
-          path: target/Report/Ndosi Phone Test Report.html
+          name: selenium-report
+          path: target/Report/
 
       - name: Send Email with Emailable Report Attachment
-        if: always() && github.event_name == 'push'
-        uses: dawidd6/action-send-mail@v4
+        if: always()
+        uses: dawidd6/action-send-mail@v3
         with:
           # SMTP server configuration
           server_address: smtp.gmail.com                    # Gmail SMTP server
           server_port: 587                                  # TLS secure connection port
           # Authentication credentials (stored in GitHub secrets for security)
           username: ${{ secrets.EMAIL_USERNAME }}           # Gmail account email
-          password: ${{ secrets.EMAIL_APP_PASSWORD }}       # Gmail app-specific password
+          password: ${{ secrets.EMAIL_PASSWORD }}           # Gmail app-specific password
           # Email content
           subject: Selenium Automation Test Results - Report for CI/CD  # Email subject line
-          to: martyitope@gmail.com                        # Recipient email address
+          to: fitness.seed@gmail.com                        # Recipient email address
           from: ${{ secrets.EMAIL_USERNAME }}               # Sender email address
           # Message body with test execution details and formatting
           body: |
-            Hi Team, 
+            Hi Team,
+
             ═══════════════════════════════════════════════════════════
                           TEST EXECUTION REPORT
-            ═══════════════════════════════════════════════════════════ 
+            ═══════════════════════════════════════════════════════════
+
             Repository  :  ${{ github.repository }}
             Branch      :  ${{ github.ref_name }}
-            Commit      :  ${{ github.sha }}  
+            Commit      :  ${{ github.sha }}
             Run Number  :  ${{ github.run_number }}
             Triggered by:  ${{ github.actor }}
             Status      :  COMPLETED
@@ -67,10 +70,9 @@ jobs:
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
             Kind Regards,
-            Martin Itope
             Team Lead
 
-          attachments: target/Report/Ndosi Phone Test Report.html
+          attachments: target/Report/Ndosi Test Report.html
 
 
 
