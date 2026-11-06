@@ -2,6 +2,7 @@ package Tests;
 
 import Pages.HomePage;
 import Pages.LoginPage;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 /**
@@ -9,18 +10,19 @@ import org.testng.annotations.Test;
  * Email: martyitope@gmail.com
  * Date: 04/11/2026
  */
+@Listeners(ExtentReports.Listeners.class)
 public class WebAutomationAdvancedTest extends Base {
 
     @Test
     public void LoginTest() throws InterruptedException {
-
+        takeScreenshots.takeSnapShot(driver, "BeforeLogin");
         homepage.clickLoginButton();
         loginPage.setLoginEmail();
         loginPage.setLoginPassword();
         loginPage.clickLoginSubmit();
         //takeScreenshots.takeSnapShot(driver, "validLogin");
         Thread.sleep(4000);
-
+        takeScreenshots.takeSnapShot(driver, "AfterLogin");
     }
 
     @Test (dependsOnMethods = "LoginTest")
@@ -39,6 +41,7 @@ public class WebAutomationAdvancedTest extends Base {
 
     @Test (dependsOnMethods = "LearningMatTest")
     public void WebAutoAdvanceTest() throws InterruptedException {
+        takeScreenshots.takeSnapShot(driver, "InventoryForm");
         webAutoAdvancedPage.setDeviceType();
         webAutoAdvancedPage.selectBrand();
         webAutoAdvancedPage.selectStorage();
@@ -51,15 +54,18 @@ public class WebAutomationAdvancedTest extends Base {
 
     @Test (dependsOnMethods = "WebAutoAdvanceTest")
     public void WebAutoPage2Test() throws InterruptedException {
+        takeScreenshots.takeSnapShot(driver, "Page2_InventoryForm");
         webAutoAdvancedPage.selectShippingMethod();
         webAutoAdvancedPage.setWarranty();
         webAutoAdvancedPage.enterDiscountCode("SAVE10");
         webAutoAdvancedPage.clickConfirm();
         Thread.sleep(5000);
+        takeScreenshots.takeSnapShot(driver, "Confirmed_InventoryForm");
         webAutoAdvancedPage.clickInvoice();
         Thread.sleep(5000);
         webAutoAdvancedPage.openInvoice();
         Thread.sleep(4000);
+        takeScreenshots.takeSnapShot(driver, "Final Invoice");
 
     }
 
