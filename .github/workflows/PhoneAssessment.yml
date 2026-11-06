@@ -34,7 +34,7 @@ jobs:
 
       - name: Send Email with Emailable Report Attachment
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: dawidd6/action-send-mail@v3
         with:
           # SMTP server configuration
           server_address: smtp.gmail.com                    # Gmail SMTP server
